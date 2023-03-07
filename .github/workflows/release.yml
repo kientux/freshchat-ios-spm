@@ -23,13 +23,29 @@ jobs:
     - name: Compute checksum
       run: swift package compute-checksum FreshchatSDK.xcframework.zip > checksum.txt
     - name: Release new version
+      id: release_new_version
       run: |
         export TARGET_VERSION=$(cat target-version.txt)
         export CHECKSUM=$(cat checksum.txt)
+
+        sed -Ei '' "s/download\/.+\/FreshchatSDK/download\/$TARGET_VERSION\/FreshchatSDK/g" Package.swift
         sed -Ei '' "s/checksum: \".+\"/checksum: \"$CHECKSUM\"/g" Package.swift
+
         git config --global user.name "github.ci"
         git config --global user.email "github.ci@github"
+
         git add Package.swift
         git commit -m "Update Package.swift to new release ($TARGET_VERSION)"
         git tag $TARGET_VERSION
         git push && git push --tags
+
+        echo "TARGET_VERSION=$TARGET_VERSION" >> $GITHUB_OUTPUT
+
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: FreshchatSDK.xcframework.zip
+        asset_name: FreshchatSDK.xcframework.zip
+        tag: ${{ steps.release_new_version.outputs.TARGET_VERSION }}
+        overwrite: true
