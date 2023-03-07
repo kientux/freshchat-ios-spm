@@ -31,9 +31,6 @@ jobs:
         sed -Ei '' "s/download\/.+\/FreshchatSDK/download\/$TARGET_VERSION\/FreshchatSDK/g" Package.swift
         sed -Ei '' "s/checksum: \".+\"/checksum: \"$CHECKSUM\"/g" Package.swift
 
-        git config --global user.name "github.ci"
-        git config --global user.email "github.ci@github"
-
         git add Package.swift
         git commit -m "Update Package.swift to new release ($TARGET_VERSION)"
         git tag $TARGET_VERSION
