@@ -1,7 +1,4 @@
-# This workflow will build a Swift project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
-
-name: Swift
+name: Release
 
 on:
   push:
@@ -32,7 +29,7 @@ jobs:
         sed -Ei '' "s/checksum: \".+\"/checksum: \"$CHECKSUM\"/g" Package.swift
         git config --global user.name "github.ci"
         git config --global user.email "github.ci@github"
-        git add -A
+        git add Package.swift
         git commit -m "Update Package.swift to new release ($TARGET_VERSION)"
         git tag $TARGET_VERSION
         git push && git push --tags
