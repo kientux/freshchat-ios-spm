@@ -19,7 +19,7 @@ jobs:
     - name: Clone original repo
       run: git clone https://github.com/freshworks/freshchat-ios.git
     - name: Create zip
-      run: cd freshchat-ios && zip -r FreshchatSDK.xcframework.zip FreshchatSDK.xcframework
+      run: cd freshchat-ios && zip -r ../FreshchatSDK.xcframework.zip FreshchatSDK.xcframework
     - name: Compute checksum
       run: swift package compute-checksum FreshchatSDK.xcframework.zip > checksum.txt
     - name: Edit Package.swift
