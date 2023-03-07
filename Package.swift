@@ -12,7 +12,7 @@ let package = Package(
     ],
     targets: [
         .binaryTarget(name: "FreshchatSDK",
-                      url: "https://github.com/kientux/freshchat-ios-spm/releases/download/v5.4.4/FreshchatSDK.xcframework.zip",
-                      checksum: "481b2f6876b0d382db277f3b83050865dd883d160914678fef63862d54a36bd7")
+                      url: "https://github.com/kientux/freshchat-ios-spm/releases/download/v5.4.3/FreshchatSDK.xcframework.zip",
+                      checksum: "9f73b0e3b6154fe615311826474206e736099ead8ae20d820268ddbf8d39d5ff")
     ]
 )
